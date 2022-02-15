@@ -46,7 +46,7 @@ class MassObject {
 
   void update() {
     // Updates acceleration, velocity and position
-    acceleration = totalForce.div(mass);
+    acceleration = totalForce.div(mass); // Newtons second law
     velocity.add(acceleration);
     position.add(velocity);
 
