@@ -1,8 +1,8 @@
 class GravityWorld {
 
-  float gravity;
+  float gravity; // Gravity constant (Not the real one :-) )
 
-  ArrayList<MassObject> things;
+  ArrayList<MassObject> things; // Arraylist for all the things
 
   boolean tracing, toggleTracing;
 
@@ -12,6 +12,7 @@ class GravityWorld {
     things = new ArrayList<MassObject>();
 
     tracing = false;
+    toggleTracing = false;
 
     // Add a star
     things.add(new MassObject(
