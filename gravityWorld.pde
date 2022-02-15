@@ -27,8 +27,9 @@ class GravityWorld {
 
   void run() {
 
+    // Add a thing if mouse released, with speed as mouse dragged
     if (mReleased) {
-      // Add a thing
+
       things.add(new MassObject(
         new PVector(mouseX, mouseY), 
         new PVector(mVelocity.x, mVelocity.y), 
@@ -40,12 +41,14 @@ class GravityWorld {
       mReleased = false;
     }
 
+    // Control gravity value
     if (keysPressed.hasValue("w")) {
       gravity = gravity + 0.001;
     } else if (keysPressed.hasValue("s")) {
       gravity = gravity - 0.001;
     }
 
+    // Toggle tracing
     if (keysPressed.hasValue("t") && !toggleTracing){
       tracing = !tracing;
       toggleTracing = true;
@@ -53,12 +56,14 @@ class GravityWorld {
       toggleTracing = false;
     }
 
+    // Render and update the world
     render();
     update();
   }
 
   void update() {
 
+    // Apply gravity to all things
     for (MassObject currentThing : things) {
       for (MassObject thing : things) {
         if (currentThing != thing) {
@@ -67,16 +72,20 @@ class GravityWorld {
       }
     }
 
+    // Run all things
     for (MassObject currentThing : things) {
       currentThing.run();
     }
   }
 
   void render() {
+
+    //Trace the things - or not
     if (!tracing) {
       background(0);
     }
 
+    // Render the dashboard with gravity value
     fill(50);
     rect(0, 0, 300, 70);
     fill(255);

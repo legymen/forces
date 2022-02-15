@@ -10,7 +10,7 @@ void setup(){
 
     mReleased = false;
     mVelocity = new PVector(0, 0);
-    // trace = false;
+    
     keysPressed = new StringList();
 
     myGravityWorld = new GravityWorld(0.03);
