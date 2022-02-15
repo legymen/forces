@@ -4,10 +4,14 @@ class GravityWorld {
 
   ArrayList<MassObject> things;
 
+  boolean tracing, toggleTracing;
+
   GravityWorld(float _gravity) {
     gravity = _gravity;
 
     things = new ArrayList<MassObject>();
+
+    tracing = false;
 
     // Add a star
     things.add(new MassObject(
@@ -36,12 +40,17 @@ class GravityWorld {
       mReleased = false;
     }
 
-    if (w) {
-      gravity = gravity + 0.01;
-      w = false;
-    } else if (s) {
-      gravity = gravity - 0.01;
-      s = false;
+    if (keysPressed.hasValue("w")) {
+      gravity = gravity + 0.001;
+    } else if (keysPressed.hasValue("s")) {
+      gravity = gravity - 0.001;
+    }
+
+    if (keysPressed.hasValue("t") && !toggleTracing){
+      tracing = !tracing;
+      toggleTracing = true;
+    } else {
+      toggleTracing = false;
     }
 
     render();
@@ -64,13 +73,16 @@ class GravityWorld {
   }
 
   void render() {
-    if (!trace) {
+    if (!tracing) {
       background(0);
     }
+
+    fill(50);
+    rect(0, 0, 300, 70);
     fill(255);
     textSize(30);
     textAlign(LEFT, TOP);
-    text("gravity = " + gravity, 20, 20);
+    text("gravity = " + nf(gravity, 0, 3), 20, 20);
   }
 
   PVector calculateGravity(MassObject currentThing, MassObject thing) {

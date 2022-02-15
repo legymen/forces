@@ -1,9 +1,7 @@
 boolean mReleased;
 PVector mVelocity;
 
-boolean trace;
-boolean w;
-boolean s;
+StringList keysPressed; 
 
 GravityWorld myGravityWorld;
 
@@ -12,13 +10,15 @@ void setup(){
 
     mReleased = false;
     mVelocity = new PVector(0, 0);
-    trace = false;
+    // trace = false;
+    keysPressed = new StringList();
 
     myGravityWorld = new GravityWorld(0.03);
 }
 
 void draw(){
     myGravityWorld.run();
+    keysPressed.clear();
 }
 
 void mouseReleased(){
@@ -31,17 +31,5 @@ void mouseDragged(){
 }
 
 void keyPressed(){
-    switch (key){
-        case 't':
-        trace = !trace;
-        break;
-
-        case 'w':
-        w = true;
-        break;
-
-        case 's':
-        s = true;
-        break;
-    }
+    keysPressed.append(str(key));
 }
