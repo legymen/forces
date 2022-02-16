@@ -4,6 +4,9 @@ PVector mVelocity;
 StringList keysPressed; 
 
 GravityWorld myGravityWorld;
+ElectroWorld myElectroWorld;
+
+String state;
 
 void setup(){
     size(1200, 1000);
@@ -14,10 +17,29 @@ void setup(){
     keysPressed = new StringList();
 
     myGravityWorld = new GravityWorld(0.03);
+    myElectroWorld = new ElectroWorld(0.01);
+
+    state = "MENU";
+
+    background(0);
 }
 
 void draw(){
-    myGravityWorld.run();
+    switch (state){
+        
+        case "MENU":
+            renderMenu();
+        break;
+
+        case "GRAVITY_WORLD":
+            myGravityWorld.run();
+        break;
+
+        case "ELECTRO_WORLD":
+            myElectroWorld.run();
+        break;
+    }
+    
     keysPressed.clear();
 }
 
@@ -32,4 +54,19 @@ void mouseDragged(){
 
 void keyPressed(){
     keysPressed.append(str(key));
+}
+
+void renderMenu(){
+    textAlign(CENTER);
+    textSize(50);
+    fill(255, 255, 0);
+    text("1: Gravity, 2: Electro", width/2, height/2);
+
+    if(keysPressed.hasValue("1")){
+        state = "GRAVITY_WORLD";
+        background(0);
+    } else if (keysPressed.hasValue("2")){
+        state = "ELECTRO_WORLD";
+        background(0);
+    }
 }

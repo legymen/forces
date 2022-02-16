@@ -23,7 +23,6 @@ class GravityWorld {
       100, 
       color(255, 255, 0)));
 
-    background(0);
   }
 
   void run() {

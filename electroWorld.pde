@@ -14,7 +14,6 @@ class ElectroWorld {
     fieldOn = false;
     toggleFieldOn = false;
 
-    background(0);
   }
 
   void run() {
@@ -25,23 +24,25 @@ class ElectroWorld {
       things.add(new ElectroObject(
         new PVector(mouseX, mouseY), 
         new PVector(0, 0), 
-        new PVector(0, 0), 
-        100, 
+        new PVector(0, 0),
+        50,
+        100,
         10, 
-        color(random(128, 255), random(128, 255), random(128, 255))));
+        color(random(128, 255), random(128, 255), random(128, 255)),
+        true));
 
       mReleased = false;
     }
 
     // Control electrostatic constant
     if (keysPressed.hasValue("w")) {
-      gravity = k_e + 0.001;
+      k_e = k_e + 0.001;
     } else if (keysPressed.hasValue("s")) {
-      k_e = gravity - 0.001;
+      k_e = k_e - 0.001;
     }
 
     // Toggle field on
-    if (keysPressed.hasValue("t") && !toggleTracing){
+    if (keysPressed.hasValue("t") && !toggleFieldOn){
       fieldOn = !fieldOn;
       toggleFieldOn = true;
     } else {
@@ -65,7 +66,7 @@ class ElectroWorld {
     }
 
     // Run all things
-    for (MassObject currentThing : things) {
+    for (ElectroObject currentThing : things) {
       currentThing.run();
     }
   }
@@ -74,7 +75,7 @@ class ElectroWorld {
 
     // Render the dashboard with the k_e-value
     fill(50);
-    rect(0, 0, 300, 70);
+    rect(0, 0, 500, 70);
     fill(255);
     textSize(30);
     textAlign(LEFT, TOP);
@@ -86,7 +87,7 @@ class ElectroWorld {
     // CHANGE THIS!!! This is for gravity
     PVector distanceVector = PVector.sub(thing.position, currentThing.position);
     float distanceMagnitude = distanceVector.mag();
-    float forceMagnitude = e_k*currentThing.mass*thing.mass/sq(distanceMagnitude);
+    float forceMagnitude = k_e*currentThing.mass*thing.mass/sq(distanceMagnitude);
     return distanceVector.setMag(forceMagnitude);
   }
 }
